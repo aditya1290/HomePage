@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     int variable;
     int hell;
+    int x;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
