@@ -127,7 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/RegisterHere" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/Register"
         android:layout_width="80dp"
         android:layout_height="39dp"
         android:layout_marginTop="68dp"
