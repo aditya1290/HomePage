@@ -3,6 +3,7 @@ package com.example.practicefirebase;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -10,5 +11,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        Log.i("user","logged in");
     }
 }

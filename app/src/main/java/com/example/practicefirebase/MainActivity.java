@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,17 +28,25 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
 
 
     FirebaseAuth auth;
     EditText id,pass;
+    TextView ForgotPassword;
     GoogleSignInClient googleSignInClient ;
     SignInButton signInButton;
     Button forgotPassword;
     DatabaseReference rootReference;
     FirebaseUser user;
 
+    public void startRegisterActivity(View view)
+    {
+        Intent i = new Intent(getApplicationContext(),RegisterActivity.class);
+        startActivity(i);
+    }
     public void login(View view)
     {
         if(id.getText().toString().equals("") || pass.getText().toString().equals(""))
@@ -54,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     if(task.isSuccessful() && user.isEmailVerified())
                     {
                         //Log.i("yes logged in","user");
-                        Toast.makeText(MainActivity.this, "Welcome " Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Welcome " ,Toast.LENGTH_SHORT).show();
                         finish();
                         /*String id = user.getEmail();
                         String password = "1234";
@@ -103,15 +112,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
-        id = (EditText)findViewById(R.id.email);
-        pass = (EditText)findViewById(R.id.password);
-        forgotPassword = (Button)findViewById(R.id.forgotPassword);
+        id = (EditText)findViewById(R.id.logInNameInput);
+        pass = (EditText)findViewById(R.id.LoginPasswordInput);
+        ForgotPassword = (TextView) findViewById(R.id.ForgetPassword);
 
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
+        ForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(getApplicationContext(),ForgotPasswordAcitivity.class);
+                Intent i = new Intent(getApplicationContext(),ForgotPasswordActivity.class);
                 startActivity(i);
             }
         });
@@ -122,22 +131,16 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this,gso);
-        signInButton = (SignInButton)findViewById(R.id.googlebutton);
+        signInButton = (SignInButton)findViewById(R.id.signInButton);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("button","clicked");
 
                 Intent signInIntent = googleSignInClient.getSignInIntent();
-
                 startActivityForResult(signInIntent, 9001);
             }
         });
-
-    }
-
-    public void signIn(View view) {
 
     }
 
@@ -150,17 +153,11 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                Log.i("check","ho gya 10");
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                if(account==null)
-                {
-                    Log.i("id","not getting");
-                }
-                Log.i("check","ni ho gya 10");
                 account.getEmail();
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Log.i("check","ni ho gya 1");
+                Toast.makeText(this, "Error occured Try Again", Toast.LENGTH_SHORT).show();
                 // Google Sign In failed, update UI appropriately
                 //Log.w(TAG, "Google sign in failed", e);
                 // ...
@@ -170,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         //Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-        Log.i("check","ho gya 1");
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -179,16 +175,16 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //  Log.d(TAG, "signInWithCredential:success");
-                            Log.i("check","ho gya 2");
+
                             FirebaseUser user = auth.getCurrentUser();
-                            Intent i = new Intent(getApplicationContext(),profileActivity.class);
+                            Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
                             Toast.makeText(MainActivity.this, "logged in Successfully", Toast.LENGTH_SHORT).show();
                             startActivity(i);
 
 
                             //updateUI(user);
                         } else {
-                            Toast.makeText(MainActivity.this, "not logged in Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Error occured try again", Toast.LENGTH_SHORT).show();
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithCredential:failure", task.getException());
                             //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();

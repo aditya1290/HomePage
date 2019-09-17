@@ -7,7 +7,6 @@
     tools:context=".RegisterActivity">
 
 
-
     <ImageView
         android:id="@+id/backgroundImageLoginPage"
         android:layout_width="fill_parent"
@@ -15,23 +14,24 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/background_login_page" />
 
-
     <EditText
         android:id="@+id/RegisterNameInput"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="406dp"
+        android:layout_height="100dp"
         android:layout_alignTop="@+id/backgroundImageLoginPage"
-        android:layout_alignBottom="@+id/backgroundImageLoginPage"
-        android:layout_marginTop="118dp"
-        android:layout_marginBottom="568dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginBottom="461dp"
+        android:clickable="false"
         android:ems="10"
         android:fontFamily="serif"
-        android:hint="Email id"
-        android:inputType="textPersonName"
-        android:textColor="#F3F0F0"
+        android:hint="Email"
+        android:inputType="textPassword"
+        android:textColor="#F8F6F6"
         android:textColorHint="@android:color/black"
-        android:textColorLink="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logInNameInput"
         tools:layout_editor_absoluteX="0dp" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/backgroundImageLoginPage"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="476dp"
+        android:layout_marginBottom="398dp"
         android:ems="10"
         android:fontFamily="serif"
         android:hint="Password"
@@ -65,6 +65,7 @@
         android:fontFamily="serif"
         android:includeFontPadding="true"
         android:lineSpacingExtra="36sp"
+        android:onClick="createUser"
         android:text="Register"
         android:textColor="#000000"
         android:textSize="20sp"
