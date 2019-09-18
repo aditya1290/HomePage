@@ -23,16 +23,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void createUser(View view)
     {
-        String id = "adityag.cs.17@nitj.ac.in";
+        String id = email.getText().toString();
         String pass = password.getText().toString();
 
         System.out.println(id + pass);
-        if( pass.equals(""))
+        if( id.equals("") || pass.equals(""))
         {
             Toast.makeText(this, "Email or password can't be empty", Toast.LENGTH_SHORT).show();
         }
         else {
-
 
             auth.createUserWithEmailAndPassword(id, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -41,8 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Please Verify Your email address", Toast.LENGTH_SHORT).show();
                         user = auth.getCurrentUser();
                         if(user!=null) {
-
-
                             user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -51,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-
 
                             finish();
                             Intent i = new Intent(getApplicationContext(), MainActivity.class);

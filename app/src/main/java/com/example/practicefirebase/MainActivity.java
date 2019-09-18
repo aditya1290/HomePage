@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,9 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -112,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
-        id = (EditText)findViewById(R.id.logInNameInput);
+        id = (EditText)findViewById(R.id.LoginNameInput);
         pass = (EditText)findViewById(R.id.LoginPasswordInput);
         ForgotPassword = (TextView) findViewById(R.id.ForgetPassword);
 
@@ -130,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        googleSignInClient = GoogleSignIn.getClient(this,gso);
+        googleSignInClient = GoogleSignIn.getClient(this , gso);
         signInButton = (SignInButton)findViewById(R.id.signInButton);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
